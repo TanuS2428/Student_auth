@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { UserPlus, AlertCircle, User, Mail, Lock, Book } from 'lucide-react';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+
 const Register = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -24,7 +26,7 @@ const Register = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post('http://localhost:5000/api/register', formData);
+      const res = await axios.post(`${API_URL}/register`, formData);
       localStorage.setItem('token', res.data.token);
       navigate('/dashboard');
     } catch (err) {

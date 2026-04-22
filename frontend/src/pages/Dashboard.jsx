@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { LogOut, Home, Bell, LayoutDashboard, BookOpen, KeyRound, AlertCircle, CheckCircle } from 'lucide-react';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+
 const Dashboard = () => {
   const [student, setStudent] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -23,7 +25,7 @@ const Dashboard = () => {
   const fetchStudentData = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/me', {
+      const res = await axios.get(`${API_URL}/me`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setStudent(res.data);
@@ -50,7 +52,7 @@ const Dashboard = () => {
     setSuccessMsg('');
     try {
       const token = localStorage.getItem('token');
-      await axios.put('http://localhost:5000/api/update-password', passForm, {
+      await axios.put(`${API_URL}/update-password`, passForm, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setSuccessMsg('Password updated successfully');
@@ -66,7 +68,7 @@ const Dashboard = () => {
     setSuccessMsg('');
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.put('http://localhost:5000/api/update-course', courseForm, {
+      const res = await axios.put(`${API_URL}/update-course`, courseForm, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setSuccessMsg('Course updated successfully');
